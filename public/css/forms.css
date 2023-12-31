@@ -1,0 +1,40 @@
+.form-control {
+    margin: 1rem 0;
+    border-radius: 2px;
+    
+  }
+
+  .form-control-inline {
+    border-radius: 5px;
+    margin-left: 35%;
+    margin-right: 40%;
+    margin-top: 5%;
+    background-color: #f2f2f2;
+    padding:10px 30px 5px 5px;
+    border: 1px solid #ccc;
+    }
+  
+  .form-control label{
+    margin-bottom: 10px;
+    
+    display: block;
+  }
+  .form-control input{
+   
+    font: inherit;
+    border-radius: 5px;
+    width: 110%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 1px;
+    margin-left: 0;
+   
+  }
+  
+  .form-control input:focus {
+    outline-color: #00695c;
+  }
+
+  
+  

@@ -1,0 +1,18 @@
+const path = require('path');
+
+const express = require('express');
+
+const adminController = require('../controllers/admin');
+
+const router = express.Router();
+
+// /admin/add-product => GET
+router.get('/add-user', adminController.getForm);
+
+router.post('/post-user',adminController.postUserDetails);
+
+router.delete('/delete-user',adminController.deleteUserDetails);
+
+router.get('/fetch-users',adminController.fetch);
+
+module.exports=router;

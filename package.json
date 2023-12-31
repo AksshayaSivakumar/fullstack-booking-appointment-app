@@ -1,0 +1,25 @@
+{
+  "name": "fullstack-booking-appointment-app",
+  "version": "1.0.0",
+  "description": "booking appointment app",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "start-server": "node app.js"
+  },
+  "keywords": [
+    "backend"
+  ],
+  "author": "Aksshaya",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "express": "^4.18.2",
+    "mysql2": "^3.6.5",
+    "sequelize": "^6.35.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
