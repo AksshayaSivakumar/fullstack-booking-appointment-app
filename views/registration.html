@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Booking Appointment</title>
     <link rel="stylesheet" href="/css/forms.css">
     <link rel="stylesheet" href="/css/main.css">
  
 </head>
 <body>
+    <header id="main-header" class="bg-success text-white p-4 mb-5 centered">
+        <h1>Booking Appointment Form</h1>
+      </header>  
+    <div class="form-control-inline" >
+   
     
-    <div class="form-control-inline">
-       
-    <main class="grid">
         
-    <form class="form-control" action="/admin/add-user" method="POST" >
+    <form class="form-control"  action="/admin/post-user" method="POST" onsubmit="postuser(event)">
         
         <div class="form-control">
             <label for="name">Name</label>
@@ -28,15 +30,104 @@
             <label for="emailId">Email</label>
             <input type="email" name="emailId" id="emailId" >
         </div>
-    </form><br>
-     <form action="/admin/fetch-users" class="form-control-inline" method="POST">
-        <button class="btn" type="submit"> Add </button>
+        <button class="btn" type="submit" > Add </button>
      </form>    
+     <div class="user-group">
+        <ul id="listofusers"></ul>
+    
+    </div>
         
     
-</main>
+
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.1/axios.min.js"></script>
+<script>
+    async function postuser(event)
+   {
+   
+   try {
+       event.preventDefault();
+   const name=document.getElementById('name').value;
+   const mobileNumber=document.getElementById('mobileNumber').value;
+   const emailId=document.getElementById('emailId').value;
+   
+   const user={
+       name,
+       mobileNumber,
+       emailId
+   }
+       
+       const res = await axios.post("http://localhost:3000/admin/post-user",user)
+   
+       showUserOnScreen(res.data.newUserDetail);
+       
+       document.getElementById('name').value = ''; // Clear the username field
+       document.getElementById('mobileNumber').value = ''; // Clear the mobilenumber field
+       document.getElementById('emailId').value = ''; // Clear the emailid field
+       
+   } catch (error) {
+       document.body.innerHTML=document.body.innerHTML+'<h4>Something Went Wrong</h4>';
+       console.log(error);
+   }
+   }
+
+   window.addEventListener("DOMContentLoaded", async () => {
     
+try {
+    const res = await axios.get("http://localhost:3000/admin/get-user")
+
+    //console.log(res.data.allUsers);
+    // data is in the format of array
+
+    for(i=0;i<res.data.allUsers.length;i++)
+    {
+        showUserOnScreen(res.data.allUsers[i])
+        console.log(res.data.allUsers[i]);
+    }
+} catch (err) {
+  document.body.innerHTML= document.body.innerHTML+"<h4>Something Went Wrong</h4>"
+  console.log(err)
+}
+})
+
+function showUserOnScreen(user)
+{
+    let parentNode=document.getElementById('listofusers');
+    const childNode=`<li id=${user.id}>${user.name}-${user.mobileNumber}-${user.emailId}
+                        <button onclick=deleteUser('${user.id}')>Delete</button>
+                        <button onclick=editUserDetail('${user.name}','${user.mobileNumber}','${user.emailId}','${user.id}')>Edit</button>`
+
+    parentNode.innerHTML=parentNode.innerHTML+childNode; 
+
+
+}
+
+async function deleteUser(userid)
+{
+
+    try {
+        await axios.delete(`http://localhost:3000/admin/delete-user/${userid}`);
+        removeFromScreen(userid);
+    } catch (err) {
+        document.body.innerHTML= document.body.innerHTML+"<h4>Something Went Wrong</h4>"
+    console.log(err);
+    }
+       
+         
+} 
+
+function removeFromScreen(id)
+ {
+     let parent=document.getElementById('listofusers');
+    const childNodeDeleted=document.getElementById(id);
+
+    parent.removeChild(childNodeDeleted)
+}
+
+   
+   
+ </script>   
 </body>
 </html>
    

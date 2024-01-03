@@ -9,10 +9,10 @@ const router = express.Router();
 // /admin/add-product => GET
 router.get('/add-user', adminController.getForm);
 
+router.get('/get-user',adminController.getUserDetails);
+
 router.post('/post-user',adminController.postUserDetails);
 
-router.delete('/delete-user',adminController.deleteUserDetails);
-
-router.get('/fetch-users',adminController.fetch);
+router.delete('/delete-user/:id',adminController.deleteUserDetails);
 
 module.exports=router;

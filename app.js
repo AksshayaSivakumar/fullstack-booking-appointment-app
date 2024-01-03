@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 
 const sequelize = require('./util/database');
 
-//const cors=require('cors');
+const cors=require('cors');
 const rootDir=require('./util/path');
 
 const app = express();
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/admin', adminRoutes);
 
-
+app.use(cors());
 sequelize.sync()
 .then(result=>{
     

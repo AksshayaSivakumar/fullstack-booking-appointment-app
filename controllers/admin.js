@@ -24,6 +24,7 @@ exports.postUserDetails= async (req,res,next)=>{
 
   try 
     {
+
    if(!req.body.mobileNumber)
    {
     throw new Error('mobile number is mandatory')
@@ -41,7 +42,8 @@ exports.postUserDetails= async (req,res,next)=>{
      console.log('updated success');
      
     res.status(201).json({newUserDetail:data})
-     res.redirect('/admin/add-user')
+    
+     
     }
 catch(err)
 
@@ -61,7 +63,7 @@ exports.deleteUserDetails=async (req,res,next)=> {
        return res.status(400).json({err:'Id is missing'})
    }
     const userId=req.params.id;
-    await User.destroy({where:{id:userId}});
+    await Users.destroy({where:{id:userId}});
     res.sendStatus(200);
   } catch (err) {
    console.log(err);
@@ -69,7 +71,7 @@ exports.deleteUserDetails=async (req,res,next)=> {
   }
 }
 
-exports.fetch= async (req,res,next)=>{
+exports.getUserDetails= async (req,res,next)=>{
 
   try {
     const users= await Users.findAll()
